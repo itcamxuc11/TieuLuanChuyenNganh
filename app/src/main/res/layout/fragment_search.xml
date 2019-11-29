@@ -24,12 +24,15 @@
     <ImageButton
         android:id="@+id/imageButtonSearch"
         android:layout_width="wrap_content"
+<<<<<<< HEAD:app/src/main/res/layout/activity_search.xml
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
         android:background="@null"
         android:onClick="onSearch"
+=======
+>>>>>>> 8baf95abc39d1a8c175eda18eb87c67bcb02b498:app/src/main/res/layout/fragment_search.xml
         android:src="@drawable/search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +52,6 @@
 
     <ImageButton
         android:id="@+id/imageButtonSpeak"
-        android:onClick="onListen"
         android:background="@null"
         android:layout_width="30dp"
         android:layout_height="30dp"
