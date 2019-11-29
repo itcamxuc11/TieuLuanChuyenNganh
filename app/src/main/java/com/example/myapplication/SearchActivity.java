@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+
 import com.example.myapplication.model.DatabaseAccess;
 import com.example.myapplication.model.Word;
+
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -46,7 +48,6 @@ public class SearchActivity extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
         Word word = databaseAccess.getWord(input);
-
         txtVoca.setText(word.getVocabulary());
         txtType.setText(word.getType());
         txtVocul.setText(word.getVocalization());
@@ -54,6 +55,7 @@ public class SearchActivity extends AppCompatActivity {
         txtExp.setText(word.getExplanation());
         txtExam.setText(word.getExample());
         txtExam_trans.setText(word.getExample_translation());
+
     }
 
     public void onListen(View view){
