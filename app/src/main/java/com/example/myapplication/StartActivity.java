@@ -28,7 +28,7 @@ public class StartActivity extends AppCompatActivity {
         FragmentManager fragmentManager= getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         FragmentSearchActivity fragmentSearchActivity= new FragmentSearchActivity();
-        fragmentTransaction.add(R.id.framecontent,fragmentSearchActivity);
+        fragmentTransaction.replace(R.id.framecontent,fragmentSearchActivity);
         fragmentTransaction.commit();
 
     }

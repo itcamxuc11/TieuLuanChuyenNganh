@@ -36,10 +36,8 @@ public class FragmentSearchActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-<<<<<<< HEAD
-        return inflater.inflate(R.layout.activity_search,container,false);
 
-=======
+
         View view =  inflater.inflate(R.layout.fragment_search,container,false);
         edttInput = view.findViewById(R.id.editTextInput);
         txtVoca = view.findViewById(R.id.textVocabu);
@@ -92,7 +90,7 @@ public class FragmentSearchActivity extends Fragment {
             e.printStackTrace();
         }
         p.start();
->>>>>>> 8baf95abc39d1a8c175eda18eb87c67bcb02b498
+
     }
 
 }

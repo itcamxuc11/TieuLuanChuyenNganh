@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+   >
 
     <EditText
         android:id="@+id/editTextInput"
@@ -24,15 +24,12 @@
     <ImageButton
         android:id="@+id/imageButtonSearch"
         android:layout_width="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_search.xml
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
         android:background="@null"
-        android:onClick="onSearch"
-=======
->>>>>>> 8baf95abc39d1a8c175eda18eb87c67bcb02b498:app/src/main/res/layout/fragment_search.xml
+
         android:src="@drawable/search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +61,7 @@
 
     <TextView
         android:id="@+id/textType"
-        android:textSize="14dp"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
@@ -74,6 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textVocabu" />
 
     <TextView
+        android:textSize="20dp"
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,6 +121,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textExplan" />
 
     <TextView
+
         android:textSize="20sp"
         android:id="@+id/textExamTrans"
         android:layout_width="wrap_content"
