@@ -5,33 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="8"
+    android:weightSum="12"
     tools:context=".StartActivity">
     
     <FrameLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/framecontent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
     </FrameLayout>
     <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:background="#BCFEEC"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="7"
+        android:layout_weight="11"
         android:orientation="horizontal">
+
         <ImageButton
-            android:layout_gravity="left"
-            android:layout_weight="1"
             android:id="@+id/button2"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/search"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
             android:onClick="onSearch2"
-           ></ImageButton>
+            android:scaleType="centerInside"
+            android:scrollbarSize="4dp"
+            android:visibility="visible"
+            app:srcCompat="@mipmap/search"></ImageButton>
 
         <ImageButton
-
+            android:background="#FFFFFF"
             android:layout_weight="1"
             android:id="@+id/button"
             android:layout_width="50dp"
@@ -41,6 +47,7 @@
            ></ImageButton>
 
         <ImageButton
+            android:background="#FFFFFF"
             android:layout_gravity="right"
             android:layout_weight="1"
             android:id="@+id/button3"
@@ -52,6 +59,7 @@
 
             ></ImageButton>
         <ImageButton
+            android:background="#FFFFFF"
             android:layout_weight="1"
             android:id="@+id/button4"
             android:layout_width="50dp"
