@@ -1,10 +1,14 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.myapplication.Fragment.FragmentSearchActivity;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -17,10 +21,15 @@ public class StartActivity extends AppCompatActivity {
     public void onTopic(View view){
         Intent intent = new Intent(StartActivity.this, MainActivity.class);
         startActivity(intent);
+
     }
 
     public void onSearch2(View view){
-        Intent intent = new Intent(StartActivity.this, SearchActivity.class);
-        startActivity(intent);
+        FragmentManager fragmentManager= getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        FragmentSearchActivity fragmentSearchActivity= new FragmentSearchActivity();
+        fragmentTransaction.add(R.id.framecontent,fragmentSearchActivity);
+        fragmentTransaction.commit();
+
     }
 }
