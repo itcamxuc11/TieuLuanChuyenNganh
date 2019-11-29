@@ -24,7 +24,6 @@
     <ImageButton
         android:id="@+id/imageButtonSearch"
         android:layout_width="wrap_content"
-        android:onClick="onSearch"
         android:src="@drawable/search"
         android:background="@null"
         android:layout_height="wrap_content"
@@ -49,7 +48,6 @@
 
     <ImageButton
         android:id="@+id/imageButtonSpeak"
-        android:onClick="onListen"
         android:background="@null"
         android:layout_width="30dp"
         android:layout_height="30dp"
