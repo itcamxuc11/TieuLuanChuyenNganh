@@ -1,9 +1,6 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,13 +14,12 @@ import com.example.myapplication.model.DatabaseAccess;
 import com.example.myapplication.model.Word;
 
 import java.util.List;
-import java.util.Random;
 
 public class LessonActivity extends AppCompatActivity {
 
     List<Word> list;
     int index = 0;
-
+    String topic;
     String curentAnswer = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +28,17 @@ public class LessonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            String topic = bundle.getString("id", "");
+            topic = bundle.getString("id", "");
             LoadData(topic);
         }
         CreateQuestion();
-    }
+}
 
     private void LoadData(String topic){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();;
         list = databaseAccess.GetTopic(topic);
+        databaseAccess.close();
     }
 
 
@@ -149,6 +146,10 @@ public class LessonActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(index==19) {
+                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                    databaseAccess.open();;
+                    databaseAccess.SaveDate(topic);
+                    databaseAccess.close();
                     Intent intent = new Intent(LessonActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -160,7 +161,6 @@ public class LessonActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
     }
 
 }

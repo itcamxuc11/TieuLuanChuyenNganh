@@ -1,12 +1,15 @@
 package com.example.myapplication.model;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseAccess {
@@ -53,12 +56,32 @@ public class DatabaseAccess {
             String id = String.valueOf(c.getInt(0));
             String vocabulary = c.getString(1);
             String meaning = c.getString(4);
+            String status = c.getString(8);
             word.setId(id);
             word.setVocabulary(vocabulary);
             word.setMeaning(meaning);
+            word.setStatus(status);
             list.add(word);
         }
         return list;
+    }
+
+    public void SaveDate(String id){
+        ContentValues contentValues = new ContentValues();
+        Date date= new Date();
+        contentValues.put("Date",date.getTime());
+        db.update("Topics", contentValues, "ID" + "=" + id, null);
+        Log.e(id,String.valueOf(date.getTime()));
+    }
+
+    public String getLastLearnedTopic(){
+        c = db.rawQuery("SELECT * from Topics ORDER BY Date DESC",new String[]{} );
+        List<Topic> list = new ArrayList<>();
+        if (c.moveToNext()){
+            String id = String.valueOf(c.getInt(0));
+            return id;
+        }
+        return null;
     }
 
     public  Word getWord(String input){
@@ -73,6 +96,7 @@ public class DatabaseAccess {
             String explan = c.getString(5);
             String exam = c.getString(6);
             String exam_tran = c.getString(7);
+            String status = c.getString(8);
             word.setId(id);
             word.setVocabulary(vocabulary);
             word.setMeaning(meaning);
@@ -81,7 +105,10 @@ public class DatabaseAccess {
             word.setExplanation(explan);
             word.setExample(exam);
             word.setExample_translation(exam_tran);
+            word.setStatus(status);
         }
         return word;
     }
+
+
 }

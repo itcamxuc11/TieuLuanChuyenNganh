@@ -10,6 +10,7 @@ public class Word {
     private String example;
     private String example_translation;
     private  String topic;
+    private String status;
 
     public  Word(){
 
@@ -86,5 +87,13 @@ public class Word {
 
     public void setExample(String example) {
         this.example = example;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

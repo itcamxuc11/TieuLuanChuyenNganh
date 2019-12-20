@@ -30,6 +30,10 @@ public class StartActivity extends AppCompatActivity {
         FragmentSearchActivity fragmentSearchActivity= new FragmentSearchActivity();
         fragmentTransaction.replace(R.id.framecontent,fragmentSearchActivity);
         fragmentTransaction.commit();
+    }
 
+    public void onHomeWork(View view){
+        Intent intent = new Intent(StartActivity.this, HomeWorkActivity.class);
+        startActivity(intent);
     }
 }

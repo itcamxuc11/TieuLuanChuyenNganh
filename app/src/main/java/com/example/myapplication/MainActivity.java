@@ -41,13 +41,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void LoadData(){
-        Log.e("Hello","Ok");
         lsvTopics = findViewById(R.id.ltvTopics);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();;
         List<Topic> list = databaseAccess.GetAllTopics();
         adapter = new TopicAdapter(this, R.layout.topiclaout, list);
-        Log.e("Hello",String.valueOf(list.size()));
         lsvTopics.setAdapter(adapter);
     }
 }
