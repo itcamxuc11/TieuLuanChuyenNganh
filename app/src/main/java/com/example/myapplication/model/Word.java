@@ -81,6 +81,7 @@ public class Word {
         this.topic = topic;
     }
 
+
     public String getExample() {
         return example;
     }

@@ -43,6 +43,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
+            android:onClick="onDailyWord"
             app:srcCompat="@mipmap/history"
            ></ImageButton>
 

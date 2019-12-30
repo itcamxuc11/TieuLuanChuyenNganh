@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     ListView lsvTopics;
     TopicAdapter adapter;
 
-    TopicAdapter topicAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

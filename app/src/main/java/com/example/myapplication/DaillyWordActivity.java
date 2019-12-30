@@ -13,50 +13,44 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.example.myapplication.Fragment.QuestionTyprAFragment;
 import com.example.myapplication.model.DatabaseAccess;
 import com.example.myapplication.model.Word;
 
 import java.util.List;
 
-public class LessonActivity extends AppCompatActivity {
+public class DaillyWordActivity extends AppCompatActivity {
 
     List<Word> list;
     int index = 0;
     String topic;
-    String currentAnswer = "";
-
+    String currentAnswer;
     ConstraintLayout ctlPanel;
     TextView tatResult;
     TextView txtCorrectAnswer;
     Button btnCheck;
     ProgressBar prgTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lesson);
+        setContentView(R.layout.activity_dailly_word);
         btnCheck = findViewById(R.id.buttonCheck);
         tatResult = findViewById(R.id.txtRsQuestion);
         txtCorrectAnswer = findViewById(R.id.txtCorrectAnswer);
         ctlPanel = findViewById(R.id.ctrPanel);
         prgTask = findViewById(R.id.task_progress_bar);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            topic = bundle.getString("id", "");
-            LoadData(topic);
-        }
+        LoadData();
         CreateQuestion();
-}
-
-    private void LoadData(String topic){
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-        databaseAccess.open();;
-        list = databaseAccess.GetTopic(topic);
-        databaseAccess.close();
     }
 
+    private void LoadData(){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();;
+        topic = databaseAccess.getLastLearnedTopic();
+        list = databaseAccess.getDailyWord();
+        databaseAccess.close();
+    }
 
     private void CreateQuestion(){
         String question ="";
@@ -139,7 +133,6 @@ public class LessonActivity extends AppCompatActivity {
         }
 
         QuestionTyprAFragment fragment =(QuestionTyprAFragment) getSupportFragmentManager().findFragmentById(R.id.fragment4);
-        assert fragment != null;
         fragment.setQuestion(question,a ,b ,c ,d);
     }
 
@@ -174,7 +167,7 @@ public class LessonActivity extends AppCompatActivity {
                 databaseAccess.open();;
                 databaseAccess.SaveDate(topic);
                 databaseAccess.close();
-                Intent intent = new Intent(LessonActivity.this, MainActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }
             else{

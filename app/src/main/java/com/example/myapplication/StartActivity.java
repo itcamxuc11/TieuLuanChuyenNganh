@@ -36,4 +36,8 @@ public class StartActivity extends AppCompatActivity {
         Intent intent = new Intent(StartActivity.this, HomeWorkActivity.class);
         startActivity(intent);
     }
+    public void onDailyWord(View view){
+        Intent intent = new Intent(StartActivity.this, DaillyWordActivity.class);
+        startActivity(intent);
+    }
 }

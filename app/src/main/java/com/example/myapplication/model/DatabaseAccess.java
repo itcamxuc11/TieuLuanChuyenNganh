@@ -16,7 +16,7 @@ public class DatabaseAccess {
     private SQLiteAssetHelper openHelper;
     private SQLiteDatabase db;
     private static DatabaseAccess instance;
-    Cursor c = null;
+    private Cursor c = null;
 
     private DatabaseAccess(Context context){
         this.openHelper = new DatabaseOpenHelper(context);
@@ -56,7 +56,7 @@ public class DatabaseAccess {
             String id = String.valueOf(c.getInt(0));
             String vocabulary = c.getString(1);
             String meaning = c.getString(4);
-            String status = c.getString(8);
+            String status = c.getString(9);
             word.setId(id);
             word.setVocabulary(vocabulary);
             word.setMeaning(meaning);
@@ -74,9 +74,9 @@ public class DatabaseAccess {
         Log.e(id,String.valueOf(date.getTime()));
     }
 
+
     public String getLastLearnedTopic(){
         c = db.rawQuery("SELECT * from Topics ORDER BY Date DESC",new String[]{} );
-        List<Topic> list = new ArrayList<>();
         if (c.moveToNext()){
             String id = String.valueOf(c.getInt(0));
             return id;
@@ -84,31 +84,65 @@ public class DatabaseAccess {
         return null;
     }
 
-    public  Word getWord(String input){
-        c = db.rawQuery("SELECT * from Words WHERE Vocabulary = '" + input + "'",new String[]{} );
-        Word word = new Word();
+    public  List<Word> getWord(String input){
+        c = db.rawQuery("SELECT * FROM Words WHERE instr(Vocabulary,'"+input+"') > 0",new String[]{} );
+        List<Word> list = new ArrayList<>();
         while(c.moveToNext()){
+            Word word = new Word();
             String id = String.valueOf(c.getInt(0));
             String vocabulary = c.getString(1);
             String type = c.getString(2);
             String voc = c.getString(3);
             String meaning = c.getString(4);
-            String explan = c.getString(5);
+            String explain = c.getString(5);
             String exam = c.getString(6);
             String exam_tran = c.getString(7);
-            String status = c.getString(8);
+            String topic = c.getString(8);
+            String status =String.valueOf(c.getInt(9));
+
             word.setId(id);
             word.setVocabulary(vocabulary);
             word.setMeaning(meaning);
             word.setType(type);
             word.setVocalization(voc);
-            word.setExplanation(explan);
+            word.setExplanation(explain);
             word.setExample(exam);
             word.setExample_translation(exam_tran);
+            word.setTopic(topic);
             word.setStatus(status);
+
+            list.add(word);
         }
-        return word;
+        return list;
     }
 
+    public void addToRememberList(String id){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("Status",5);
+        db.update("Words", contentValues, "ID" + "=" + id, null);
+    }
 
+    public void RemoveToRememberList(String id){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("Status",1);
+        db.update("Words", contentValues, "ID" + "=" + id, null);
+    }
+
+    public List<Word> getDailyWord(){
+        c = db.rawQuery("SELECT * from Words ORDER BY Status DESC LIMIT 20",new String[]{} );
+        List<Word> list = new ArrayList<>();
+        while(c.moveToNext()){
+            Word word = new Word();
+            String id = String.valueOf(c.getInt(0));
+            String vocabulary = c.getString(1);
+            String meaning = c.getString(4);
+            String status = c.getString(9);
+            word.setId(id);
+            word.setVocabulary(vocabulary);
+            word.setMeaning(meaning);
+            word.setStatus(status);
+            list.add(word);
+        }
+        return list;
+    }
 }

@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/default_light_grey_bg"
     android:layout_height="match_parent"
-    tools:context=".LessonActivity">
+    android:background="@color/default_light_grey_bg"
+    tools:context=".DaillyWordActivity">
 
     <ProgressBar
         android:id="@+id/task_progress_bar"

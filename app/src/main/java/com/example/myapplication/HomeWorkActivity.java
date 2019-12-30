@@ -1,12 +1,17 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.myapplication.Fragment.QuestionTyprAFragment;
 import com.example.myapplication.model.DatabaseAccess;
@@ -19,11 +24,22 @@ public class HomeWorkActivity extends AppCompatActivity {
     List<Word> list;
     int index = 0;
     String topic;
-    String curentAnswer;
+    String currentAnswer;
+
+    ConstraintLayout ctlPanel;
+    TextView tatResult;
+    TextView txtCorrectAnswer;
+    Button btnCheck;
+    ProgressBar prgTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_work);
+        btnCheck = findViewById(R.id.buttonCheck);
+        tatResult = findViewById(R.id.txtRsQuestion);
+        txtCorrectAnswer = findViewById(R.id.txtCorrectAnswer);
+        ctlPanel = findViewById(R.id.ctrPanel);
+        prgTask = findViewById(R.id.task_progress_bar);
         getActionBar();
         LoadData();
         CreateQuestion();
@@ -59,7 +75,7 @@ public class HomeWorkActivity extends AppCompatActivity {
         int randomType =  (int)(Math.random() * 2 + 1);
         if(randomType==1){
             question = list.get(index).getVocabulary();
-            curentAnswer = list.get(index).getMeaning();
+            currentAnswer = list.get(index).getMeaning();
             switch (random1){
                 case 1:
                     a = list.get(index).getMeaning();
@@ -89,7 +105,7 @@ public class HomeWorkActivity extends AppCompatActivity {
         }
         else{
             question = list.get(index).getMeaning();
-            curentAnswer = list.get(index).getVocabulary();
+            currentAnswer = list.get(index).getVocabulary();
             switch (random1){
                 case 1:
                     a = list.get(index).getVocabulary();
@@ -122,41 +138,46 @@ public class HomeWorkActivity extends AppCompatActivity {
         fragment.setQuestion(question,a ,b ,c ,d);
     }
 
+    @SuppressLint("ResourceAsColor")
     public void onCheck(View view){
-        QuestionTyprAFragment fragment =(QuestionTyprAFragment) getSupportFragmentManager().findFragmentById(R.id.fragment4);
-        String answer = fragment.getAnswer();
-        if(answer==curentAnswer){
-            showAlertDialog("Chính xác", null);
-        }
-        else{
-            showAlertDialog("Không chính xác", "Đáp án đúng là: " + curentAnswer);
-        }
-    }
-
-    public void showAlertDialog(String title, String content){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title);
-        builder.setMessage(content);
-        builder.setCancelable(false);
-        builder.setPositiveButton("Tiếp tục", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(index==19) {
-                    DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-                    databaseAccess.open();;
-                    databaseAccess.SaveDate(topic);
-                    databaseAccess.close();
-                    Intent intent = new Intent(HomeWorkActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    index++;
-                    CreateQuestion();
-                }
+        if(btnCheck.getText().toString().equals("Kiểm tra")){
+            btnCheck.setText("TIẾP TỤC");
+            QuestionTyprAFragment fragment =(QuestionTyprAFragment) getSupportFragmentManager().findFragmentById(R.id.fragment4);
+            String answer = fragment.getAnswer();
+            if(answer.equals(currentAnswer)){
+                tatResult.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.correct));
+                ctlPanel.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_correct));
+                tatResult.setText("Chính xác");
             }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+            else{
+                ctlPanel.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_incorrect));
+                tatResult.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.incorrect));;
+                btnCheck.setBackgroundResource(R.drawable.incorrect_button);
+                tatResult.setText("Không chính xác");
+                txtCorrectAnswer.setText("Đáp án đúng là: "+ currentAnswer);
+            }
+        }
+        else
+        {
+            btnCheck.setText("Kiểm tra");
+            btnCheck.setBackgroundResource(R.drawable.correct_button);
+            tatResult.setText(null);
+            txtCorrectAnswer.setText(null);
+            ctlPanel.setBackgroundColor(Color.argb(0,0,0,0));
+            if(index==19) {
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                databaseAccess.open();;
+                databaseAccess.SaveDate(topic);
+                databaseAccess.close();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+            else{
+                index++;
+                prgTask.setProgress(index);
+                CreateQuestion();
+            }
+        }
     }
 
 }
